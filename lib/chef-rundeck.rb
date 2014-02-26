@@ -117,7 +117,7 @@ def build_node (node, username, hostname, custom_attributes)
       osFamily="#{xml_escape(os_family)}"
       osName="#{xml_escape(node[:platform])}"
       osVersion="#{xml_escape(node[:platform_version])}"
-      tags="#{xml_escape(node.run_list.roles.concat(node.run_list.recipes).join(',') + ',' + node.chef_environment)}"
+      tags="#{Chef::Mixin::XMLEscape::xml_escape([node.chef_environment, node[:tags].join(','), node.run_list.roles.join(',')].join(','))}"
       roles="#{xml_escape(node.run_list.roles.join(','))}"
       recipes="#{xml_escape(node.run_list.recipes.join(','))}"
       environment="#{xml_escape(node.chef_environment)}"
